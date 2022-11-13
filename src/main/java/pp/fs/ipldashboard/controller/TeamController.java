@@ -1,6 +1,10 @@
 package pp.fs.ipldashboard.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import pp.fs.ipldashboard.model.Match;
 import pp.fs.ipldashboard.model.Team;
 import pp.fs.ipldashboard.repository.MatchRepository;
@@ -24,7 +28,7 @@ public class TeamController {
     @GetMapping("/team/{teamName}")
     public Team getTeam(@PathVariable String teamName) {
         Team team = teamRepository.findByTeamName(teamName);
-        team.setMatches(matchRepository.getLatestMatchByTeamName(teamName, 5));
+        team.setMatches(matchRepository.getLatestMatchByTeamName(teamName, 4));
         return team;
     }
 
@@ -32,8 +36,6 @@ public class TeamController {
     public List<Match> getMatches(@PathVariable String teamName, @RequestParam int year) {
         LocalDate startDate = LocalDate.of(year, 1, 1);
         LocalDate endDate = LocalDate.of(year + 1, 1, 1);
-        List<Match> matches = matchRepository.getMatchesByTeamBetweenDates(
-                teamName, startDate, endDate);
-        return matches;
+        return matchRepository.getMatchesByTeamBetweenDates(teamName, startDate, endDate);
     }
 }
