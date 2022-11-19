@@ -11,7 +11,7 @@ export const MatchPage = () => {
 
     useEffect(() => {
        const fetchResult = async () => {
-         const response = await fetch(`http://localhost:8080/team/${teamName}/matches?year=${year}`);
+         const response = await fetch(`/team/${teamName}/matches?year=${year}`);
          const res = await response.json();
          setMatches(res);
        };
