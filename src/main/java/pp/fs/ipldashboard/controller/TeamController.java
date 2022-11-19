@@ -9,7 +9,6 @@ import pp.fs.ipldashboard.model.Match;
 import pp.fs.ipldashboard.model.Team;
 import pp.fs.ipldashboard.repository.MatchRepository;
 import pp.fs.ipldashboard.repository.TeamRepository;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,6 +22,11 @@ public class TeamController {
     public TeamController(TeamRepository teamRepository, MatchRepository matchRepository) {
         this.teamRepository = teamRepository;
         this.matchRepository = matchRepository;
+    }
+
+    @GetMapping("/team")
+    public Iterable<Team> getTeams() {
+        return teamRepository.findAll();
     }
 
     @GetMapping("/team/{teamName}")
